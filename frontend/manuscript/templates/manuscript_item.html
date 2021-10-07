@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container">
+
+    <h1 class="mt-3 mb-3">{{ manuscript.cipher }}</h1>
+    <div>
+        {% for img in manuscript.images %}
+            <div class="img-container">
+                <a rel="nofollow" href="{% url "manuscript-img" img.id %}">
+                    <img src="{{ img.image }}" id="img_{{ img.id }}" class="north image">
+                </a>
+                <button type="submit" class="btn img-btn btn-outline-dark rotate-img" data-rotate-id="{{ img.id }}">Повернуть </button>
+            </div>
+        {% endfor %}
+    </div>
+{#    {% if manuscript.author %}#}
+{#        <p><u>Author:</u> {{ manuscript.author }}</p>#}
+{#    {% endif %}#}
+    <p class="mt-3">
+        <u>Место хранения:</u>
+        <a href="{% url 'manuscript' %}?storage={{ manuscript.storage }}" class="link-storage">{{ manuscript.storage }}</a>
+    </p>
+    <p>
+        <u>Дата создания:</u>
+        <a href="{% url 'manuscript' %}?filter-date={{ manuscript.creation_date_bgn }}-{{ manuscript.creation_date_end }}" class="link-storage">{{ manuscript.creation_date }}</a>
+    </p>
+    <p>
+        <u>Тип рукописи:</u>
+        <a href="{% url 'manuscript' %}?type={{ manuscript.type }}" class="link-storage">{{ manuscript.type }}</a>
+    </p>
+    {% if manuscript.lec_type %}
+        <p>
+            <u>Тип Лекционария:</u>
+            <a href="{% url 'manuscript' %}?filter={{ manuscript.lec_type }}" class="link-storage">{{ manuscript.lec_type }}</a>
+        </p>
+    {% endif %}
+    {% if manuscript.man_description %}
+        <p><u>Описание рукописи:</u> {{ manuscript.man_description }}</p>
+    {% endif %}
+    {% if manuscript_info.bibliography %}
+        <p><u>Библиография:</u> {{ manuscript_info.bibliography }}</p>
+    {% endif %}
+
+    </div>
+
+{#{{ manuscript }}#}
+{% endblock %}
+
+
+

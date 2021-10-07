@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container main">
+        <span id="get-filter" data-filter-value="{{ filter_value }}"
+              data-filter-key="{{ filter_key }}"></span>
+        <div class="row">
+            <span id="pointer"></span>
+            <div class="col-7" id="main">
+                {% for manuscript_info in manuscript_list %}
+                    <div class="manuscript-item {% if manuscript_info.id in to_update_man %}update{% endif %}"
+                         data-creation-date-bgn="{{ manuscript_info.creation_date_bgn }}"
+                         data-creation-date-end="{{ manuscript_info.creation_date_end }}"
+                         data-man-id="{{ manuscript_info.id }}">
+                        <a href="{% url 'manuscript-item' manuscript_info.id %}"><h1
+                                class="cipher-name">{{ manuscript_info.cipher }}</h1>
+                        </a>
+                        {% for img in manuscript_info.images %}
+
+                            <a rel="nofollow" href="{% url "manuscript-img" img.id %}"
+                               class="img {% if img.id in to_update_img %}update{% endif %}"
+                            >
+                                <img src="{{ img.image }}" width="100" height="100" alt="" class="image">
+                            </a>
+                        {% endfor %}
+                        <p class="storage"><u>Место хранения:</u> <a href="#"
+                                                                     class="link-storage">{{ manuscript_info.storage }}</a>
+                        </p>
+                        <p><u>Дата создания:</u>
+                            <a href="#" class="man-date" data-date-bgn="{{ manuscript_info.creation_date_bgn }}"
+                               data-date-end="{{ manuscript_info.creation_date_end }}">
+                                {{ manuscript_info.creation_date }}
+                            </a>
+                        <p class="type"><u>Тип рукописи:</u> <a
+                                href="{% url 'manuscript' %}?type={{ manuscript_info.type }}"
+                                class="link-type">{{ manuscript_info.type }}</a></p>
+                        {% if manuscript_info.lec_type %}
+                            <p class="lec_type"><u>Тип Лекционария:</u> <a href="#"
+                                                                           class="link-lec-type">{{ manuscript_info.lec_type }}</a>
+                            </p>
+                        {% endif %}
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="aside" class="col-5">
+                <h2 id="filter_title">Фильтры:</h2>
+
+                <u class="h4">Фильтр по рукописям:</u>
+                <div>
+                    Тип рукописи: <br>
+                    <select name="type" id="type">
+                        <option value="-">Не выбрано</option>
+                        <option value="Lect">Lect</option>
+                        <option value="Tetr">Tetr</option>
+                        <option value="Unkn">Неизвестно</option>
+                    </select>
+                </div>
+                <div>
+                    Место хранения: <br>
+                    <select name="storage" id="storage">
+                        <option value="-">Не выбрано</option>
+                        {% for storage in storages %}
+                            <option value="{{ storage }}">{{ storage }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    Тип Лекционария: <br>
+                    <select name="lec_type" id="lec_type">
+                        <option value="-">Не выбрано</option>
+                        {% for lec_type in lec_types %}
+                            <option value="{{ lec_type }}">{{ lec_type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    Дата создания: <br>
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="man-creation-date-input" class="form-control">
+                        <button type="button" id="man-creation-date-btn" class="btn-outline-dark btn">Применить</button>
+                    </div>
+                </div>
+                <div>
+                    Шифр: <br>
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="cipher-input" class="form-control">
+                        <button type="button" id="cipher-btn" class="btn-outline-dark btn">Применить</button>
+                    </div>
+                </div>
+
+
+                <br>
+                <u class="h4">Фильтр по изображениям:</u>
+
+                <div>
+                    Дата создания: <br>
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="img-creation-date-input" class="form-control">
+                        <button type="button" id="img-creation-date-btn" class="btn-outline-dark btn">Применить</button>
+                    </div>
+                </div>
+
+                <div>
+                    Часть Лекционария: <br>
+                    <select name="lec_part_type" id="lec_part_type">
+                        <option value="-">Не выбрано</option>
+                        {% for lec_part_type in lec_part_types %}
+                            <option value="{{ lec_part_type }}">{{ lec_part_type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <div>
+                        Месяц (в месяцеслове): <br>
+                        <select name="lec_month_type" id="lec_month_type">
+                            <option value="-">Не выбрано</option>
+                            {% for lec_month in lec_month_choices %}
+                                <option value="{{ lec_month }}">{{ lec_month }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        Евангелие: <br>
+                        <select name="gospel" id="gospel">
+                            <option value="-">Не выбрано</option>
+                            {% for gospel in gospels %}
+                                <option value="{{ gospel }}">{{ gospel }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        Номер листа: <br>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" id="folio-number-input">
+                            <button type="button" class="btn-outline-dark btn" id="folio-number-btn">Применить</button>
+                        </div>
+                    </div>
+                    <div>
+                        Часть листа: <br>
+                        <select name="part_of_folio" id="part_of_folio">
+                            <option value="-">Не выбрано</option>
+                            {% for part_of_folio in part_of_folios %}
+                                <option value="{{ part_of_folio }}">{{ part_of_folio }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    Глава :<br>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" id="chapter-input">
+                        <button type="button" class="btn-outline-dark btn" id="chapter-btn">Применить</button>
+                    </div>
+                </div>
+                <div>
+                    Стих :<br>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" id="verse-input">
+                        <button type="button" class="btn-outline-dark btn" id="verse-btn">Применить</button>
+                    </div>
+                </div>
+                <div>
+                    Цитата :<br>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" id="verse-quote-input">
+                        <button type="button" class="btn-outline-dark btn" id="verse-quote-btn">Применить</button>
+                    </div>
+                </div>
+                <div>
+                    Название изображения :<br>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" id="image-name-input">
+                        <button type="button" class="btn-outline-dark btn" id="image-name-btn">Применить</button>
+                    </div>
+                    </divЮ
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="is_update">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Информация требует уточнения
+                        </label>
+                    </div>
+                    <br>
+                    <button type="button" class="btn-dark btn" id="filters_clear">Применить фильтры</button>
+                    <button type="button" class="btn-dark btn mt-3" id="filters_clear">Сбросить все фильтры</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

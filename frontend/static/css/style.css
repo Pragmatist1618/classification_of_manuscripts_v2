@@ -1,0 +1,100 @@
+nav.navbar {
+    padding-left: 30px;
+}
+
+article {
+    /*background-color: silver;*/
+}
+
+#main {
+
+}
+
+#storage {
+    width: 160px;
+}
+
+#aside {
+    /*background-color: olive;*/
+    float:right;
+    width:400px;
+    height:1110px;
+    border-radius: 30px;
+    border: 2px solid black;
+    margin: 30px auto 0;
+
+}
+
+#filter_title{
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #103492;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #03174a;
+}
+
+.h-25px {
+    height: 25px !important;
+}
+
+/* Container needed to position the button. Adjust the width as needed */
+.img-container {
+    display: inline-block;
+    position: relative;
+    width: 30%;
+}
+
+/* Make the image responsive */
+.img-container img {
+    width: 100%;
+    height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.img-container .img-btn {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.img-container .img-btn{
+    width: 90%;
+    /*background-color: rgba(255, 255, 255, 0.5);*/
+}
+
+.img-btn:hover{
+    background-color: rgba(40, 40, 40, .5);
+}
+
+.north {
+transform:rotate(0deg);
+-ms-transform:rotate(0deg); /* IE 9 */
+-webkit-transform:rotate(0deg); /* Safari and Chrome */
+}
+.west {
+transform:rotate(279deg);
+-ms-transform:rotate(270deg); /* IE 9 */
+-webkit-transform:rotate(270deg); /* Safari and Chrome */
+}
+.south {
+transform:rotate(180deg);
+-ms-transform:rotate(180deg); /* IE 9 */
+-webkit-transform:rotate(180deg); /* Safari and Chrome */
+
+}
+.east {
+transform:rotate(90deg);
+-ms-transform:rotate(90deg); /* IE 9 */
+-webkit-transform:rotate(90deg); /* Safari and Chrome */
+}
+

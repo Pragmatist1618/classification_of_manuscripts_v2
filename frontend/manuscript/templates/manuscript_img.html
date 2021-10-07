@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+
+{% block content %}
+   <div class="container">
+    <h1 class="mt-3 mb-3">{{ manuscript.cipher }}</h1>
+        <a rel="nofollow" target="_blank" href="{{ manuscript.image }}">
+            <img src="{{ manuscript.image }}" width="250 px">
+        </a>
+{#    {% if manuscript.author %}#}
+{#        <p><u>Author:</u> {{ manuscript.author }}</p>#}
+{#    {% endif %}#}
+    <p class="mt-3"><u>Название изображения:</u> {{ manuscript.image_name }}</p>
+    {% if manuscript.img_description %}
+        <p><u>Описание изображения:</u> {{ manuscript.img_description }}</p>
+    {% endif %}
+    <p><u>Место хранения:</u> {{ manuscript.storage }}</p>
+    <p><u>Дата создания:</u> {{ manuscript.creation_date }}</p>
+    <p><u>Тип рукописи:</u> {{ manuscript.type }}</p>
+    {% if manuscript.lec_type %}
+        <p><u>Тип Лекционария:</u> {{ manuscript.lec_type }}</p>
+    {% endif %}
+    <p><u>Евангелие:</u> {{ manuscript.gospel }}</p>
+    <p><u>Глава:</u> {{ manuscript.chapter }}</p>
+    <p><u>Стих:</u> {{ manuscript.verse }}</p>
+    {% if manuscript.verse_quote %}
+        <p><u>Цитата:</u> {{ manuscript.verse_quote }}</p>
+    {% endif %}
+    {% if manuscript_info.bibliography %}
+        <p><u>Библиография:</u> {{ manuscript_info.bibliography }}</p>
+    {% endif %}
+    {% if manuscript_info.part_of_list %}
+        <p><u>Часть листа:</u> {{ manuscript_info.part_of_list }}</p>
+    {% endif %}
+
+{#{{ manuscript }}#}
+   </div>
+{% endblock %}
+
+
+

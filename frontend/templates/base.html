@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Base{% endblock title %}</title>
+    {% load static %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+{#    <a class="navbar-brand" href="{% url 'index' %}">#}
+{#        <img src="{% static 'img/kisspng-the-white-hart-the-book-of-isle-the-complete-seri-5c0307d602cfc3.4783411015437024860115.png' %}" width="35 px" alt="">#}
+{#    </a>#}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link {% if url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">Главная страница</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if url_name == 'manuscript' %}active{% endif %}" href="{% url 'manuscript' %}">Рукописи</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">О ресурсе</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="navbar-right" id="navbarNav">
+        <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+          <ul class="navbar-nav">
+        <li class="nav-item">
+                <a class="nav-link" href="/admin/">Admin</a>
+        </li>
+    </ul>
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+
+</div>
+</nav>
+
+
+<article>
+    {% block content %}
+
+    {% endblock content %}
+</article>
+
+<footer>
+
+</footer>
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/ajax.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
